@@ -209,11 +209,11 @@ export class SegmentEditing {
 
     const [dirStartPos, dirEndPos] = dirGeometry.coordinates
 
-    const merkatorDirStartPos = turf.toMercator(dirStartPos)
-    const merkatorCursorPos = turf.toMercator(cursorPos)
-    const merkatorDirEndPos = turf.toMercator(dirEndPos)
+    const mercatorDirStartPos = turf.toMercator(dirStartPos)
+    const mercatorCursorPos = turf.toMercator(cursorPos)
+    const mercatorDirEndPos = turf.toMercator(dirEndPos)
 
-    const dirCursorAngle = cartesianAngle(merkatorDirEndPos, merkatorDirStartPos, merkatorCursorPos)
+    const dirCursorAngle = cartesianAngle(mercatorDirEndPos, mercatorDirStartPos, mercatorCursorPos)
     let sectorAngle
     if (dirCursorAngle <= 180) {
       sectorAngle = convertAngleTo360(2 * dirCursorAngle)
@@ -237,15 +237,15 @@ export class SegmentEditing {
 
     const [dirStartPos] = dirGeometry.coordinates
 
-    const merkatorDirStartPos = turf.toMercator(dirStartPos)
-    const merkatorCursorPos = turf.toMercator(cursorPos)
+    const mercatorDirStartPos = turf.toMercator(dirStartPos)
+    const mercatorCursorPos = turf.toMercator(cursorPos)
 
-    const radius = cartesianDistance(merkatorDirStartPos, merkatorCursorPos)
+    const radius = cartesianDistance(mercatorDirStartPos, mercatorCursorPos)
     const cursorAzimuth = turf.bearingToAzimuth(mercatorBearing(
-      merkatorDirStartPos,
-      merkatorCursorPos
+      mercatorDirStartPos,
+      mercatorCursorPos
     ))
-    const cursorOnArcPos = turf.toWgs84(mercatorDestination(merkatorDirStartPos, radius, turf.azimuthToBearing(cursorAzimuth)))
+    const cursorOnArcPos = turf.toWgs84(mercatorDestination(mercatorDirStartPos, radius, turf.azimuthToBearing(cursorAzimuth)))
     const currentSectorAngle = sectorProperties.sectorAngle
 
     const segmentGeometries = makeSegmentGeometries(

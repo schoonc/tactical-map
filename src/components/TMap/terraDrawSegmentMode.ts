@@ -134,11 +134,11 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
     const [dirStartPos, dirEndPos] = dir.coordinates
     const cursorPos = [event.lng, event.lat]
 
-    const merkatorDirStartPos = turf.toMercator(dirStartPos)
-    const merkatorDirEndPos = turf.toMercator(dirEndPos)
-    const merkatorCursorPos = turf.toMercator(cursorPos)
+    const mercatorDirStartPos = turf.toMercator(dirStartPos)
+    const mercatorDirEndPos = turf.toMercator(dirEndPos)
+    const mercatorCursorPos = turf.toMercator(cursorPos)
 
-    const dirCursorAngle = cartesianAngle(merkatorDirEndPos, merkatorDirStartPos, merkatorCursorPos)
+    const dirCursorAngle = cartesianAngle(mercatorDirEndPos, mercatorDirStartPos, mercatorCursorPos)
     let sectorAngle
     if (dirCursorAngle <= 180) {
       sectorAngle = convertAngleTo360(2 * dirCursorAngle)

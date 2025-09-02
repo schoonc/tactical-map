@@ -23,10 +23,10 @@ const showData = throttle(() => {
   const handled = new Map()
   for (const feature of features) {
     if (feature.geometry.type === 'LineString' && feature.properties.mode === segmentMode && feature.properties.isCreatingStage) {
-      const merkatorDirStartPos = turf.toMercator(feature.geometry.coordinates[0])
-      const merkatorCursorPos = turf.toMercator(feature.geometry.coordinates[1])
+      const mercatorDirStartPos = turf.toMercator(feature.geometry.coordinates[0])
+      const mercatorCursorPos = turf.toMercator(feature.geometry.coordinates[1])
 
-      const radius = preciseRound(cartesianDistance(merkatorDirStartPos, merkatorCursorPos), 0)
+      const radius = preciseRound(cartesianDistance(mercatorDirStartPos, mercatorCursorPos), 0)
       const textData = {
         type: 'Feature',
         geometry: {
@@ -44,10 +44,10 @@ const showData = throttle(() => {
   for (const feature of features) {
     if (feature.geometry.type === 'Polygon' && feature.properties.mode === segmentMode && feature.properties.directionId) {
       handled.delete(feature.properties.directionId)
-      const merkatorDirStartPos = turf.toMercator(feature.properties.dirStartPos as [number, number])
-      const merkatorCursorPos = turf.toMercator(feature.properties.dirEndPos as [number, number])
+      const mercatorDirStartPos = turf.toMercator(feature.properties.dirStartPos as [number, number])
+      const mercatorCursorPos = turf.toMercator(feature.properties.dirEndPos as [number, number])
 
-      const radius = preciseRound(cartesianDistance(merkatorDirStartPos, merkatorCursorPos), 0)
+      const radius = preciseRound(cartesianDistance(mercatorDirStartPos, mercatorCursorPos), 0)
       const textData = {
         type: 'Feature',
         geometry: {

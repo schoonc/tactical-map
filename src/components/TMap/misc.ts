@@ -116,18 +116,18 @@ export function makeSegmentGeometries (
   dirEndPos: Position, 
   sectorAngle: number,
 ): SegmentGeometries {
-  const merkatorDirStartPos = turf.toMercator(dirStartPos)
-  const merkatorDirEndPos = turf.toMercator(dirEndPos)
+  const mercatorDirStartPos = turf.toMercator(dirStartPos)
+  const mercatorDirEndPos = turf.toMercator(dirEndPos)
     
   const dirAzimuth = turf.bearingToAzimuth(mercatorBearing(
-    merkatorDirStartPos,
-    merkatorDirEndPos
+    mercatorDirStartPos,
+    mercatorDirEndPos
   ))
-  const radius = cartesianDistance(merkatorDirStartPos, merkatorDirEndPos)
+  const radius = cartesianDistance(mercatorDirStartPos, mercatorDirEndPos)
   const arcStartAzimuth = convertAngleTo360(dirAzimuth - sectorAngle / 2)
-  const arcStartPos = turf.toWgs84(mercatorDestination(merkatorDirStartPos, radius, turf.azimuthToBearing(arcStartAzimuth)))
+  const arcStartPos = turf.toWgs84(mercatorDestination(mercatorDirStartPos, radius, turf.azimuthToBearing(arcStartAzimuth)))
   const arcEndAzimuth = convertAngleTo360(dirAzimuth + sectorAngle / 2)
-  const arcEndPos = turf.toWgs84(mercatorDestination(merkatorDirStartPos, radius, turf.azimuthToBearing(arcEndAzimuth)))
+  const arcEndPos = turf.toWgs84(mercatorDestination(mercatorDirStartPos, radius, turf.azimuthToBearing(arcEndAzimuth)))
   const sector: Polygon = {
     type: 'Polygon',
     coordinates: [
@@ -147,7 +147,7 @@ export function makeSegmentGeometries (
     }
     const azimuth = convertAngleTo360(arcEndAzimuth - stepAngle * sectorNumber)
     if (between(azimuth, arcStartAzimuth, arcEndAzimuth)) {
-      const pos = turf.toWgs84(mercatorDestination(merkatorDirStartPos, radius, turf.azimuthToBearing(azimuth)))
+      const pos = turf.toWgs84(mercatorDestination(mercatorDirStartPos, radius, turf.azimuthToBearing(azimuth)))
       sector.coordinates[0].push(pos)
     }
   }
