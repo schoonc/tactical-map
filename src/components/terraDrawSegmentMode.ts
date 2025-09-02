@@ -3,6 +3,7 @@ import { LineString, Point } from "geojson";
 import { TerraDrawAdapterStyling, TerraDrawExtend, TerraDrawKeyboardEvent, TerraDrawMouseEvent } from "terra-draw";
 import { assertDefined, cartesianAngle, convertAngleTo360, makeSegmentGeometries } from "./misc";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type SegmentModeStyling = {};
 
 export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<SegmentModeStyling> {

@@ -1,5 +1,5 @@
 <template>
-  <div ref="mapEl"></div>
+  <div ref="mapEl" />
 </template>
 
 <script setup lang="ts">
@@ -113,9 +113,11 @@ onMounted(() => {
   });
 
   control = new CustomMaplibreTerradrawControl({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modes: ['render','point','linestring','polygon','rectangle','circle','freehand','freehand-linestring','angled-rectangle','sensor','sector', 'segment', 'select','delete-selection','delete','download'] as any,
       open: true,
       modeOptions: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         segment: new TerraDrawSegmentMode() as any,
         select: new CustomSelectMode()
       },

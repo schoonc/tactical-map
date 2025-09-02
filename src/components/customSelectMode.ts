@@ -2,6 +2,7 @@ import { TerraDrawExtend, TerraDrawMouseEvent, TerraDrawSelectMode } from "terra
 import { SegmentEditing } from "./segmentEditing"
 import { SegmentProps } from "./misc"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isSegmentProps = (props: any): props is SegmentProps => {
   return props?.mode === 'segment'
 }
@@ -13,7 +14,7 @@ export class CustomSelectMode extends TerraDrawSelectMode {
   }
   initSegmentEditing (featureId: TerraDrawExtend.FeatureId, props: SegmentProps) {
     new SegmentEditing(this.store)
-    SegmentEditing.instance!.init(featureId, props)
+    SegmentEditing.instance!.init(featureId, props);
   }
   destroySegmentEditing () {
     SegmentEditing.instance?.destroy()
