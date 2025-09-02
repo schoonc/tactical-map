@@ -1,4 +1,4 @@
-# Description
+# What is it?
 
 Tactical map based on:
 - [Maplibre](https://maplibre.org/) - map rendering
@@ -10,3 +10,8 @@ In addition to built-in shapes, a custom `Segment` shape is implemented. Similar
 - Only key parameters (radius and angle) are editable. Unlike built-in shapes,
   where any shape points can be moved
 - Displays angle and radius measurements
+
+# How to run dev?
+
+1. `npm i`
+1. `npm run dev`
