@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import TMap from './components/TMap.vue'
+import TMap from './components/TMap/TMap.vue'
 </script>
 
 <style>
