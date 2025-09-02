@@ -16,7 +16,7 @@ import { cartesianDistance, preciseRound } from './misc';
 import { SegmentEditing } from './segmentEditing';
 import { TerraDrawSegmentMode } from './terraDrawSegmentMode';
 
-const showPolygonAreas = throttle(() => {
+const showData = throttle(() => {
   const td = control.getTerraDrawInstance()
   const features = td.getSnapshot()
   
@@ -122,9 +122,9 @@ onMounted(() => {
         select: new CustomSelectMode()
       },
   }, () => {
-    showPolygonAreas()
+    showData()
   }, () => {
-    tid = setTimeout(showPolygonAreas, 100)
+    tid = setTimeout(showData, 100)
   });
   map.addControl(control, 'top-left');
   map.on('mousedown', (ev) => {
