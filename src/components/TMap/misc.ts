@@ -201,7 +201,11 @@ export const showData = throttle((map: maplibregl.Map, control: CustomMaplibreTe
   
   const handled = new Map()
   for (const feature of features) {
-    if (feature.geometry.type === 'LineString' && feature.properties.mode === segmentMode && feature.properties.isCreatingStage) {
+    if (
+      feature.geometry.type === 'LineString' && 
+      feature.properties.mode === segmentMode && 
+      feature.properties.isCreatingStage
+    ) {
       const mercatorDirStartPos = turf.toMercator(feature.geometry.coordinates[0])
       const mercatorCursorPos = turf.toMercator(feature.geometry.coordinates[1])
 
@@ -221,7 +225,11 @@ export const showData = throttle((map: maplibregl.Map, control: CustomMaplibreTe
     }
   }
   for (const feature of features) {
-    if (feature.geometry.type === 'Polygon' && feature.properties.mode === segmentMode && feature.properties.directionId) {
+    if (
+      feature.geometry.type === 'Polygon' && 
+      feature.properties.mode === segmentMode && 
+      feature.properties.directionId
+    ) {
       handled.delete(feature.properties.directionId)
       const mercatorDirStartPos = turf.toMercator(feature.properties.dirStartPos as [number, number])
       const mercatorCursorPos = turf.toMercator(feature.properties.dirEndPos as [number, number])

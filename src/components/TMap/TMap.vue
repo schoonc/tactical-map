@@ -43,6 +43,8 @@ onMounted(() => {
     tid = setTimeout(() => {
       showData(map, control)
     }, 100)
+  }, () => {
+    showData(map, control)
   })
   map.addControl(control, 'top-left')
   map.on('mousedown', (ev) => {
