@@ -6,97 +6,13 @@
 import maplibregl from 'maplibre-gl'
 import { onBeforeUnmount, onMounted, ref } from "vue"
 
-import * as turf from "@turf/turf"
-import { throttle } from 'lodash'
+import '@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css'
+import 'maplibre-gl/dist/maplibre-gl.css'
 import { CustomMaplibreTerradrawControl } from './customMaplibreTerradrawControl'
 import { CustomSelectMode } from './customSelectMode'
-import { cartesianDistance, preciseRound, segmentMode } from './misc'
+import { segmentMode, showData } from './misc'
 import { SegmentEditing } from './segmentEditing'
 import { TerraDrawSegmentMode } from './terraDrawSegmentMode'
-import 'maplibre-gl/dist/maplibre-gl.css'
-import '@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css'
-
-const showData = throttle(() => {
-  const td = control.getTerraDrawInstance()
-  const features = td.getSnapshot()
-  
-  const handled = new Map()
-  for (const feature of features) {
-    if (feature.geometry.type === 'LineString' && feature.properties.mode === segmentMode && feature.properties.isCreatingStage) {
-      const mercatorDirStartPos = turf.toMercator(feature.geometry.coordinates[0])
-      const mercatorCursorPos = turf.toMercator(feature.geometry.coordinates[1])
-
-      const radius = preciseRound(cartesianDistance(mercatorDirStartPos, mercatorCursorPos), 0)
-      const textData = {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: feature.geometry.coordinates[0]
-        },
-        properties: {
-          text: `Radius: ${radius} m\n` +
-            `Angle: ${preciseRound(0, 2)} °`,
-        }
-      }
-      handled.set(feature.id, textData)
-    }
-  }
-  for (const feature of features) {
-    if (feature.geometry.type === 'Polygon' && feature.properties.mode === segmentMode && feature.properties.directionId) {
-      handled.delete(feature.properties.directionId)
-      const mercatorDirStartPos = turf.toMercator(feature.properties.dirStartPos as [number, number])
-      const mercatorCursorPos = turf.toMercator(feature.properties.dirEndPos as [number, number])
-
-      const radius = preciseRound(cartesianDistance(mercatorDirStartPos, mercatorCursorPos), 0)
-      const textData = {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: feature.properties.dirStartPos
-        },
-        properties: {
-          text: `Radius: ${radius} m\n` +
-            `Angle: ${preciseRound(feature.properties.sectorAngle as number, 2)} °`,
-        }
-      }
-      handled.set(feature.properties.directionId, textData)
-    }
-  }
-
-  if (!map.getSource('segment-texts')) {
-    map.addSource('segment-texts', {
-      type: 'geojson',
-      data: {
-        type: 'FeatureCollection',
-        features: [...handled.values()]
-      }
-    })
-    
-    map.addLayer({
-      id: 'polygon-area-labels',
-      type: 'symbol',
-      source: 'segment-texts',
-      layout: {
-        'text-field': ['get', 'text'],
-        'text-font': ['Open Sans Regular', 'Arial Unicode MS Regular'],
-        'text-size': 14,
-        'text-anchor': 'center',
-        'text-allow-overlap': true
-      },
-      paint: {
-        'text-color': '#000000',
-        'text-halo-color': '#ffffff',
-        'text-halo-width': 2
-      }
-    })
-  } else {
-    const source = map.getSource('segment-texts') as maplibregl.GeoJSONSource | undefined
-    source?.setData({
-      type: 'FeatureCollection',
-      features: [...handled.values()]
-    })
-  }
-}, 50)
 
 const mapEl = ref()
 let map: maplibregl.Map
@@ -122,9 +38,11 @@ onMounted(() => {
       select: new CustomSelectMode()
     },
   }, () => {
-    showData()
+    showData(map, control)
   }, () => {
-    tid = setTimeout(showData, 100)
+    tid = setTimeout(() => {
+      showData(map, control)
+    }, 100)
   })
   map.addControl(control, 'top-left')
   map.on('mousedown', (ev) => {
