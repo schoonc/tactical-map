@@ -1,7 +1,12 @@
-# Tauri + Vue + TypeScript
+# Description
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Tactical map based on:
+- [Maplibre](https://maplibre.org/) - map rendering
+- [Terra draw](https://terradraw.io/) - shape drawing
+- [Maplibre GL Terra Draw](https://terradraw.water-gis.com/) - ready-to-use drawing controls
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+In addition to built-in shapes, a custom `Segment` shape is implemented. Similar to the built-in `Sector`, but:
+- Radius and angle are specified during creation
+- Only key parameters (radius and angle) are editable. Unlike built-in shapes,
+  where any shape points can be moved
+- Displays angle and radius measurements
