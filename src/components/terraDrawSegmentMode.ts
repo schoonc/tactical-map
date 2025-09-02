@@ -1,13 +1,13 @@
-import * as turf from '@turf/turf';
-import { LineString, Point } from "geojson";
-import { TerraDrawAdapterStyling, TerraDrawExtend, TerraDrawKeyboardEvent, TerraDrawMouseEvent } from "terra-draw";
-import { assertDefined, cartesianAngle, convertAngleTo360, makeSegmentGeometries } from "./misc";
+import * as turf from '@turf/turf'
+import { LineString, Point } from "geojson"
+import { TerraDrawAdapterStyling, TerraDrawExtend, TerraDrawKeyboardEvent, TerraDrawMouseEvent } from "terra-draw"
+import { assertDefined, cartesianAngle, convertAngleTo360, makeSegmentGeometries } from "./misc"
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type SegmentModeStyling = {};
 
 export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<SegmentModeStyling> {
-  mode = 'segment' as const;
+  mode = 'segment' as const
   dirStartId: TerraDrawExtend.FeatureId | undefined
   dirEndId: TerraDrawExtend.FeatureId | undefined
   directionId: TerraDrawExtend.FeatureId | undefined
@@ -17,14 +17,14 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
   processSectorOnMove = false
 
   start(): void {
-    this.setStarted();
-		this.setCursor('crosshair');
+    this.setStarted()
+    this.setCursor('crosshair')
   }
 
   stop(): void {
-    this.cleanUp();
-		this.setStopped();
-		this.setCursor("unset");
+    this.cleanUp()
+    this.setStopped()
+    this.setCursor("unset")
   }
 
   completeFigure () {
@@ -37,7 +37,7 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
     const finishedId = this.sectorId
     this.cleanUp(true)
     this.sectorId = undefined
-		this.onFinish(finishedId, { mode: this.mode, action: "draw" });
+    this.onFinish(finishedId, { mode: this.mode, action: "draw" })
   }
 
   cleanUp(saveSector = false): void {
@@ -72,8 +72,8 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
   }
 
   styleFeature(): TerraDrawAdapterStyling {
-    const styles = { ...TerraDrawExtend.getDefaultStyling() };
-		return styles;
+    const styles = { ...TerraDrawExtend.getDefaultStyling() }
+    return styles
   }
   onClick(event: TerraDrawMouseEvent): void {
     if (!this.directionId) {
@@ -87,7 +87,7 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
             mode: this.mode, /* required by terra-draw */
           }
         },
-      ]);
+      ])
       const [directionId] = this.store.create([
         {
           geometry: {
@@ -101,7 +101,7 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
             mode: this.mode, /* required by terra-draw */
           }
         }
-      ]);
+      ])
       this.store.updateProperty([{
         id: directionId,
         property: 'isCreatingStage',
@@ -121,7 +121,7 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
             mode: this.mode, /* required by terra-draw */
           }
         },
-      ]);
+      ])
       this.dirEndId = endId
       this.processSectorOnMove = true
     } else {
@@ -241,11 +241,11 @@ export class TerraDrawSegmentMode extends TerraDrawExtend.TerraDrawBaseDrawMode<
   }
   onKeyUp(event: TerraDrawKeyboardEvent): void {
     if (event.key === 'Escape') {
-			this.cleanUp()
-		}
+      this.cleanUp()
+    }
 
-		if (event.key === 'Enter') {
-			this.cleanUp()
-		}
+    if (event.key === 'Enter') {
+      this.cleanUp()
+    }
   }
 }

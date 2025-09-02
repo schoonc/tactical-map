@@ -1,7 +1,0 @@
-dist/
-dist-ssr/
-node_modules/
-src-tauri/
-coverage/
-*.config.js
-*.config.ts

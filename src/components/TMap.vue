@@ -3,18 +3,18 @@
 </template>
 
 <script setup lang="ts">
-import maplibregl from 'maplibre-gl';
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import maplibregl from 'maplibre-gl'
+import { onBeforeUnmount, onMounted, ref } from "vue"
 
-import * as turf from "@turf/turf";
-import '@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css';
-import { throttle } from 'lodash';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import { CustomMaplibreTerradrawControl } from './customMaplibreTerradrawControl';
-import { CustomSelectMode } from './customSelectMode';
-import { cartesianDistance, preciseRound } from './misc';
-import { SegmentEditing } from './segmentEditing';
-import { TerraDrawSegmentMode } from './terraDrawSegmentMode';
+import * as turf from "@turf/turf"
+import '@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css'
+import { throttle } from 'lodash'
+import 'maplibre-gl/dist/maplibre-gl.css'
+import { CustomMaplibreTerradrawControl } from './customMaplibreTerradrawControl'
+import { CustomSelectMode } from './customSelectMode'
+import { cartesianDistance, preciseRound } from './misc'
+import { SegmentEditing } from './segmentEditing'
+import { TerraDrawSegmentMode } from './terraDrawSegmentMode'
 
 const showData = throttle(() => {
   const td = control.getTerraDrawInstance()
@@ -98,7 +98,7 @@ const showData = throttle(() => {
   }
 }, 50)
 
-const mapEl = ref();
+const mapEl = ref()
 let map: maplibregl.Map
 let control: CustomMaplibreTerradrawControl
 let tid: ReturnType<typeof setTimeout>
@@ -110,23 +110,23 @@ onMounted(() => {
     center: [0, 0], // starting position [lng, lat]
     zoom: 1, // starting zoom,
     renderWorldCopies: false
-  });
+  })
 
   control = new CustomMaplibreTerradrawControl({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    modes: ['render','point','linestring','polygon','rectangle','circle','freehand','freehand-linestring','angled-rectangle','sensor','sector', 'segment', 'select','delete-selection','delete','download'] as any,
+    open: true,
+    modeOptions: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      modes: ['render','point','linestring','polygon','rectangle','circle','freehand','freehand-linestring','angled-rectangle','sensor','sector', 'segment', 'select','delete-selection','delete','download'] as any,
-      open: true,
-      modeOptions: {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        segment: new TerraDrawSegmentMode() as any,
-        select: new CustomSelectMode()
-      },
+      segment: new TerraDrawSegmentMode() as any,
+      select: new CustomSelectMode()
+    },
   }, () => {
     showData()
   }, () => {
     tid = setTimeout(showData, 100)
-  });
-  map.addControl(control, 'top-left');
+  })
+  map.addControl(control, 'top-left')
   map.on('mousedown', (ev) => {
     const features = map.queryRenderedFeatures(ev.point)
     const feature = features?.[0]

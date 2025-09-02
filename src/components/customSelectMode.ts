@@ -14,7 +14,7 @@ export class CustomSelectMode extends TerraDrawSelectMode {
   }
   initSegmentEditing (featureId: TerraDrawExtend.FeatureId, props: SegmentProps) {
     new SegmentEditing(this.store)
-    SegmentEditing.instance!.init(featureId, props);
+    SegmentEditing.instance!.init(featureId, props)
   }
   destroySegmentEditing () {
     SegmentEditing.instance?.destroy()
@@ -34,7 +34,7 @@ export class CustomSelectMode extends TerraDrawSelectMode {
         ]
       },
       properties: {}
-    });
+    })
 
     const feature = features?.[0]
     const props = feature?.properties

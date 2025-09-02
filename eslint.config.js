@@ -38,6 +38,8 @@ export default [
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'warn',
       'prefer-const': 'error',
+      'indent': ['error', 2],
+      'semi': ['error', 'never'],
     },
   },
 
@@ -47,6 +49,10 @@ export default [
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/no-unused-vars': 'error',
+      'indent': ['error', 2],
+      'semi': ['error', 'never'],
+      'vue/html-indent': ['error', 2],
+      'vue/script-indent': ['error', 2],
     },
   },
 

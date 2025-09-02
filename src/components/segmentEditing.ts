@@ -1,7 +1,7 @@
-import * as turf from '@turf/turf';
-import { Feature, LineString, Point, Position } from "geojson";
-import { TerraDrawExtend, TerraDrawSelectMode } from "terra-draw";
-import { cartesianAngle, assertDefined, cartesianDistance, convertAngleTo360, makeSegmentGeometries, mercatorBearing, mercatorDestination, SegmentGeometries, SegmentProps } from "./misc";
+import * as turf from '@turf/turf'
+import { Feature, LineString, Point, Position } from "geojson"
+import { TerraDrawExtend, TerraDrawSelectMode } from "terra-draw"
+import { cartesianAngle, assertDefined, cartesianDistance, convertAngleTo360, makeSegmentGeometries, mercatorBearing, mercatorDestination, SegmentGeometries, SegmentProps } from "./misc"
 
 type SegmentData = {
   sectorId: TerraDrawExtend.FeatureId,
