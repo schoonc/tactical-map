@@ -7,14 +7,14 @@ import maplibregl from 'maplibre-gl'
 import { onBeforeUnmount, onMounted, ref } from "vue"
 
 import * as turf from "@turf/turf"
-import '@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css'
 import { throttle } from 'lodash'
-import 'maplibre-gl/dist/maplibre-gl.css'
 import { CustomMaplibreTerradrawControl } from './customMaplibreTerradrawControl'
 import { CustomSelectMode } from './customSelectMode'
 import { cartesianDistance, preciseRound, segmentMode } from './misc'
 import { SegmentEditing } from './segmentEditing'
 import { TerraDrawSegmentMode } from './terraDrawSegmentMode'
+import 'maplibre-gl/dist/maplibre-gl.css'
+import '@watergis/maplibre-gl-terradraw/dist/maplibre-gl-terradraw.css'
 
 const showData = throttle(() => {
   const td = control.getTerraDrawInstance()
