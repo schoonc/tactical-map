@@ -1,7 +1,7 @@
 import * as turf from '@turf/turf'
 import { Feature, LineString, Point, Position } from "geojson"
 import { TerraDrawExtend, TerraDrawSelectMode } from "terra-draw"
-import { cartesianAngle, assertDefined, cartesianDistance, convertAngleTo360, makeSegmentGeometries, mercatorBearing, mercatorDestination, SegmentGeometries, SegmentProps } from "./misc"
+import { segmentMode, cartesianAngle, assertDefined, cartesianDistance, convertAngleTo360, makeSegmentGeometries, mercatorBearing, mercatorDestination, SegmentGeometries, SegmentProps } from "./misc"
 
 type SegmentData = {
   sectorId: TerraDrawExtend.FeatureId,
@@ -82,7 +82,7 @@ export class SegmentEditing {
     const arr: {
       geometry: Point | LineString, 
       properties: {
-        mode: 'segment', 
+        mode: typeof segmentMode, 
         segmentControlType?: 'dirStart' | 'arcStart' | 'dirEnd'| 'arcEnd'
       }
     }[] = [
@@ -92,7 +92,7 @@ export class SegmentEditing {
           coordinates: segmentGeometries.dirStart.coordinates
         },
         properties: {
-          mode: 'segment',
+          mode: segmentMode,
           segmentControlType: 'dirStart',
         }
       },
@@ -102,7 +102,7 @@ export class SegmentEditing {
           coordinates: segmentGeometries.arcStart.coordinates
         },
         properties: {
-          mode: 'segment',
+          mode: segmentMode,
           segmentControlType: 'arcStart',
         }
       },
@@ -112,7 +112,7 @@ export class SegmentEditing {
           coordinates: segmentGeometries.dirEnd.coordinates
         },
         properties: {
-          mode: 'segment',
+          mode: segmentMode,
           segmentControlType: 'dirEnd',
         }
       },
@@ -122,7 +122,7 @@ export class SegmentEditing {
           coordinates: segmentGeometries.arcEnd.coordinates
         },
         properties: {
-          mode: 'segment',
+          mode: segmentMode,
           segmentControlType: 'arcEnd',
         }
       },
@@ -132,7 +132,7 @@ export class SegmentEditing {
           coordinates: segmentGeometries.direction.coordinates
         },
         properties: {
-          mode: 'segment',
+          mode: segmentMode,
         }
       }
     ]

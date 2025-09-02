@@ -1,10 +1,10 @@
 import { TerraDrawExtend, TerraDrawMouseEvent, TerraDrawSelectMode } from "terra-draw"
 import { SegmentEditing } from "./segmentEditing"
-import { SegmentProps } from "./misc"
+import { segmentMode, SegmentProps } from "./misc"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isSegmentProps = (props: any): props is SegmentProps => {
-  return props?.mode === 'segment'
+  return props?.mode === segmentMode
 }
 
 export class CustomSelectMode extends TerraDrawSelectMode {

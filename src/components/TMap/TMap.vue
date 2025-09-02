@@ -12,7 +12,7 @@ import { throttle } from 'lodash'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { CustomMaplibreTerradrawControl } from './customMaplibreTerradrawControl'
 import { CustomSelectMode } from './customSelectMode'
-import { cartesianDistance, preciseRound } from './misc'
+import { cartesianDistance, preciseRound, segmentMode } from './misc'
 import { SegmentEditing } from './segmentEditing'
 import { TerraDrawSegmentMode } from './terraDrawSegmentMode'
 
@@ -22,7 +22,7 @@ const showData = throttle(() => {
   
   const handled = new Map()
   for (const feature of features) {
-    if (feature.geometry.type === 'LineString' && feature.properties.mode === 'segment' && feature.properties.isCreatingStage) {
+    if (feature.geometry.type === 'LineString' && feature.properties.mode === segmentMode && feature.properties.isCreatingStage) {
       const merkatorDirStartPos = turf.toMercator(feature.geometry.coordinates[0])
       const merkatorCursorPos = turf.toMercator(feature.geometry.coordinates[1])
 
@@ -42,7 +42,7 @@ const showData = throttle(() => {
     }
   }
   for (const feature of features) {
-    if (feature.geometry.type === 'Polygon' && feature.properties.mode === 'segment' && feature.properties.directionId) {
+    if (feature.geometry.type === 'Polygon' && feature.properties.mode === segmentMode && feature.properties.directionId) {
       handled.delete(feature.properties.directionId)
       const merkatorDirStartPos = turf.toMercator(feature.properties.dirStartPos as [number, number])
       const merkatorCursorPos = turf.toMercator(feature.properties.dirEndPos as [number, number])
@@ -114,7 +114,7 @@ onMounted(() => {
 
   control = new CustomMaplibreTerradrawControl({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    modes: ['render','point','linestring','polygon','rectangle','circle','freehand','freehand-linestring','angled-rectangle','sensor','sector', 'segment', 'select','delete-selection','delete','download'] as any,
+    modes: ['render','point','linestring','polygon','rectangle','circle','freehand','freehand-linestring','angled-rectangle','sensor','sector', segmentMode, 'select','delete-selection','delete','download'] as any,
     open: true,
     modeOptions: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

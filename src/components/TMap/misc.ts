@@ -3,7 +3,7 @@ import { LineString, Point, Polygon, Position } from "geojson"
 
 type CartesianPoint = number[];
 export type SegmentProps = {
-  mode: 'segment',
+  mode: typeof segmentMode,
   dirStartPos: Position,
   dirEndPos: Position,
   sectorAngle: number,
@@ -18,6 +18,7 @@ export type SegmentGeometries = {
 }
 
 const sectorsCount = 64
+export const segmentMode = 'segment'
 
 export function assertDefined<T>(value: T | undefined): asserts value is T {
   if (!value) {
