@@ -30,7 +30,7 @@ export function convertAngleTo360(alpha: number) {
   if (beta < 0) {
     beta += 360;
   }
-  return beta;
+  return Math.abs(beta); /* beta may be -0 */
 }
 
 export function between(target: number, start: number, end: number) {
