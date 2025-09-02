@@ -9,7 +9,7 @@ import {
   preciseRound,
   assertDefined,
   makeSegmentGeometries
-} from './misc'
+} from '../misc'
 
 describe('convertAngleTo360', () => {
   test('converts positive angles correctly', () => {
